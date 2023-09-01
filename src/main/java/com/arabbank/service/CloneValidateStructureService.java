@@ -6,5 +6,5 @@ import com.arabbank.service.model.ValidationResult;
 import java.util.List;
 
 public interface CloneValidateStructureService {
-    ValidationResult cloneRepositoryAndValidateFolderStructure(String repositoryUrl, String persistPath, List<DirectoryRequirement> directoryRequirements);
+    ValidationResult cloneRepositoryAndValidateFolderStructure(String persistPath, List<DirectoryRequirement> directoryRequirements);
 }
