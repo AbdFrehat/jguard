@@ -1,4 +1,4 @@
-package com.arabbank.service.model;
+package com.arabbank.model;
 
 public class DirectoryRequirement {
 }

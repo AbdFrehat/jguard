@@ -3,8 +3,8 @@ package com.arabbank.operation;
 import com.arabbank.function.GitCloneFunction;
 import com.arabbank.function.YamlConfigurationProvider;
 import com.arabbank.service.CloneValidateStructureService;
-import com.arabbank.service.model.DirectoryRequirement;
-import com.arabbank.service.model.ValidationResult;
+import com.arabbank.model.DirectoryRequirement;
+import com.arabbank.model.ValidationResult;
 
 import java.util.List;
 

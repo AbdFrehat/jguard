@@ -1,7 +1,7 @@
 package com.arabbank.service;
 
-import com.arabbank.service.model.DirectoryRequirement;
-import com.arabbank.service.model.ValidationResult;
+import com.arabbank.model.DirectoryRequirement;
+import com.arabbank.model.ValidationResult;
 
 import java.util.List;
 

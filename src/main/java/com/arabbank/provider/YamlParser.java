@@ -8,16 +8,14 @@ import java.util.Map;
 public final class YamlParser {
     public static Map<String, Object> configurations;
 
-    private static void parseYaml() {
+    public static Map<String, Object> parseYaml(String yamlPath) {
         Yaml yaml = new Yaml();
         InputStream inputStream = YamlParser.class
                 .getClassLoader()
-                .getResourceAsStream("config.yml");
-        configurations = yaml.load(inputStream);
-        System.out.println(configurations);
+                .getResourceAsStream(yamlPath);
+        return yaml.load(inputStream);
     }
 
-    public YamlParser() {
-        parseYaml();
+    private YamlParser() {
     }
 }
