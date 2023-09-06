@@ -1,8 +1,7 @@
 package com.arabbank.model;
 
+import java.util.List;
 import java.util.Map;
 
-public class ProjectTree {
-    private String projectName;
-    private Map<String, Object> projectDirectories;
+public record ProjectTree(String projectName, Map<String, List<String>> projectDirectories) {
 }
