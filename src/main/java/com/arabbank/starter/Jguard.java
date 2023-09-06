@@ -1,7 +1,7 @@
 package com.arabbank.starter;
 
 import com.arabbank.function.GitCloneFunction;
-import com.arabbank.function.ProjectTreeAnalyzer;
+import com.arabbank.function.ProjectTreeFunction;
 import com.arabbank.provider.YamlParser;
 
 import java.util.Map;
@@ -11,18 +11,18 @@ public class Jguard {
     private static Map<String, Object> yamlProperties;
 
     private final GitCloneFunction gitCloneFunction;
-    private final ProjectTreeAnalyzer projectTreeAnalyzer;
+    private final ProjectTreeFunction projectTreeFunction;
 
-    public Jguard(GitCloneFunction gitCloneFunction, ProjectTreeAnalyzer projectTreeAnalyzer) {
+    public Jguard(GitCloneFunction gitCloneFunction, ProjectTreeFunction projectTreeFunction) {
         this.gitCloneFunction = gitCloneFunction;
-        this.projectTreeAnalyzer = projectTreeAnalyzer;
+        this.projectTreeFunction = projectTreeFunction;
     }
 
     public void start(String configPath) {
         displayLogo();
         configs = YamlParser.parseYaml("config.yml");
         gitCloneFunction.cloneGitRepository((String) configs.get("repositoryUrl"), (String) configs.get("persistPath"));
-        projectTreeAnalyzer.analyzeProjectTree((String) configs.get("persistPath"));
+        projectTreeFunction.analyze((String) configs.get("persistPath"));
     }
 
     private static void displayLogo() {

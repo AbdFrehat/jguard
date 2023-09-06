@@ -1,9 +1,8 @@
 # Project requirements
 
 ## Phase I
-- **Should clone the repository to a specific directory**.
-- **Should take the repository and path to clone as arguments.**
-- **Verify that only one module exists in the project tree.**
-- **Verify the project tree structure and all the required files exists in the proper place with the proper name (arguments).**
-
+- **Function to clone the repository to a specific directory**.
+  - **GitCloneFunction(String, String) -> void**
+- **Function to analyze the project tree into a list of specific model.**
+  - **ProjectTreeFunction(String, String) -> List<ProjectTree>**
 ## Phase II
