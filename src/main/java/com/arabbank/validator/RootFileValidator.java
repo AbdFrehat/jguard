@@ -8,12 +8,12 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-public class FileValidator {
+public class RootFileValidator {
     private final FilesProvider filesProvider;
     private final ConfigurationProvider configurationProvider;
-    private static final Logger logger = LoggerFactory.getLogger(FileValidator.class);
+    private static final Logger logger = LoggerFactory.getLogger(RootFileValidator.class);
 
-    public FileValidator() {
+    public RootFileValidator() {
         this.filesProvider = new FilesProvider();
         this.configurationProvider = new ConfigurationProvider(new YamlParseExecutor());
     }

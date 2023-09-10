@@ -1,15 +1,19 @@
 package com.arabbank.starter;
 
-import com.arabbank.validator.FileValidator;
+import com.arabbank.validator.ApplicationYamlPropertiesValidator;
+import com.arabbank.validator.RootFileValidator;
 
 public class ValidationExecutor {
-    private final FileValidator fileValidator;
+    private final RootFileValidator rootFileValidator;
+    private final ApplicationYamlPropertiesValidator applicationYamlPropertiesValidator;
 
     public ValidationExecutor() {
-        this.fileValidator = new FileValidator();
+        this.applicationYamlPropertiesValidator = new ApplicationYamlPropertiesValidator();
+        this.rootFileValidator = new RootFileValidator();
     }
 
     public void execute() {
-        fileValidator.validate();
+        rootFileValidator.validate();
+        applicationYamlPropertiesValidator.validate();
     }
 }

@@ -1,3 +1,4 @@
 repositoryUrl: https://github.com/mmohiesen96/jguard.git
 persistPath: /Users/moh/jguard/src/main/java/com/arabbank/test1
 filesToValidate: .gitignore, pom.xml
+propertiesToValidate: repositoryUrl, persistPath
