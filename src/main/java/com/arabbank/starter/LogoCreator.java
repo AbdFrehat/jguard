@@ -10,13 +10,14 @@ import java.nio.charset.StandardCharsets;
 public class LogoCreator {
     private static final Logger logger = LoggerFactory.getLogger(LogoCreator.class);
 
+    private LogoCreator() {
+    }
+
     public static String createLogo() {
-        InputStream fileInputStream;
-        try {
-            fileInputStream = LogoCreator.class.getClassLoader().getResourceAsStream("logo");
-            return new String(fileInputStream.readAllBytes(), StandardCharsets.UTF_8);
+        try (InputStream inputStream = LogoCreator.class.getClassLoader().getResourceAsStream("logo")) {
+            return new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
         } catch (NullPointerException | IOException ioException) {
-            System.out.println("Logo not found");
+            logger.error("Logo not found");
             return "";
         }
     }

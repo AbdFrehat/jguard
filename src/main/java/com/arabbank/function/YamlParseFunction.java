@@ -4,5 +4,5 @@ import java.util.Map;
 
 @FunctionalInterface
 public interface YamlParseFunction {
-    Map<String, Object> parse(String yamlName);
+    Map<String, Object>  parse(String yamlName);
 }

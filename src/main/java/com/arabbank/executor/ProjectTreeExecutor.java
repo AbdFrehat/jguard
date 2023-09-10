@@ -18,7 +18,6 @@ public class ProjectTreeExecutor implements ProjectTreeFunction {
         logger.info("Analyzing repository file tree from [{}]", path);
         ProjectTree projectTree = new ProjectTree("", new HashMap<>());
         analyzeDirectory(new File(path), projectTree);
-        System.out.println(projectTree);
         logger.info("Finished analyzing project tree");
         return projectTree;
     }
