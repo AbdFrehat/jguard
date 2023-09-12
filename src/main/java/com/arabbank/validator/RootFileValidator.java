@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RootFileValidator {
     private final FilesProvider filesProvider;
