@@ -21,9 +21,9 @@ public class YamlParseExecutor implements YamlParseFunction {
         try (InputStream input = new FileInputStream(yamlName)) {
             return new ApplicationYaml(yaml.load(input));
         } catch (FileNotFoundException e) {
-            logger.info("Something went wrong, maybe {} doesn't exist", yamlName); // TODO: 11/09/2023 replace with log.error
+            logger.error("Something went wrong, maybe {} doesn't exist", yamlName);
         } catch (IOException e) {
-            logger.info("Error parsing the yaml file with path {}", yamlName); // TODO: 11/09/2023 replace with log.error
+            logger.error("Error parsing the yaml file with path {}", yamlName);
         }
         return new ApplicationYaml(Map.of());
     }

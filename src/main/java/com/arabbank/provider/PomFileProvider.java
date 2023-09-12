@@ -16,4 +16,5 @@ public class PomFileProvider {
     public String provide(String tagName) {
         return this.pomFile.tags().get(tagName);
     }
+
 }

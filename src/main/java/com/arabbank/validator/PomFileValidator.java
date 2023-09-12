@@ -8,7 +8,7 @@ public class PomFileValidator {
     private final PomFileProvider pomFileProvider;
     private final ConfigurationProvider configurationProvider;
 
-    public PomFileValidator(ConfigurationProvider configurationProvider) {
+    public PomFileValidator() {
         this.configurationProvider = new ConfigurationProvider(new YamlParseExecutor());
         this.pomFileProvider = new PomFileProvider();
     }
