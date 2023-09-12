@@ -6,7 +6,9 @@ import com.arabbank.provider.FilesProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RootFileValidator {
     private final FilesProvider filesProvider;
@@ -20,11 +22,12 @@ public class RootFileValidator {
 
     public void validate() {
         List<String> filesToValidate = List.of(configurationProvider.provide("filesToValidate").split(","));
-        List<String> root = this.filesProvider.provide("test1");
+        List<File> root = this.filesProvider.provide("test1");
+        List<String> names = root.stream().map(File::getName).toList();
         logger.info("Validating files: {}", filesToValidate);
         filesToValidate.forEach(file -> {
             logger.info("Validating {}", file);
-            if (root.contains(file.trim())) {
+            if (names.contains(file.trim())) {
                 logger.info("{} exists", file);
                 return;
             }

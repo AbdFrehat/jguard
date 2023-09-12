@@ -1,13 +1,14 @@
 package com.arabbank.provider;
 
 import com.arabbank.function.YamlParseFunction;
+import com.arabbank.model.ApplicationYaml;
 
 import java.util.Map;
 
 public class ConfigurationProvider {
     private final YamlParseFunction yamlParseFunction;
-    private Map<String, Object> configurations;
-    private YamlProvider yamlProvider;
+    private ApplicationYaml configurations;
+    private final YamlProvider yamlProvider;
 
     public ConfigurationProvider(YamlParseFunction yamlParseFunction) {
         this.yamlParseFunction = yamlParseFunction;
@@ -17,8 +18,7 @@ public class ConfigurationProvider {
 
     public String provide(String propertyName) {
         String[] properties = propertyName.split("\\.");
-        Map<String, Object> temp;
-        temp = configurations;
+        Map<String, Object> temp = configurations.properties();
         return yamlProvider.provide(properties, temp, propertyName);
     }
 

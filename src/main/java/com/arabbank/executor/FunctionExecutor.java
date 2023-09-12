@@ -19,6 +19,6 @@ public class FunctionExecutor {
         gitCloneFunction.cloneGitRepository(
                 configurationProvider.provide("repositoryUrl"),
                 configurationProvider.provide("persistPath"));
-        projectTreeFunction.analyze(configurationProvider.provide("persistPath"));
+        projectTreeFunction.scan(configurationProvider.provide("persistPath"));
     }
 }

@@ -14,25 +14,25 @@ public class ProjectTreeExecutor implements ProjectTreeFunction {
     private static final Logger logger = LoggerFactory.getLogger(ProjectTreeExecutor.class);
 
     @Override
-    public ProjectTree analyze(String path) {
+    public ProjectTree scan(String path) {
         logger.info("Analyzing repository file tree from [{}]", path);
         ProjectTree projectTree = new ProjectTree("", new HashMap<>());
-        analyzeDirectory(new File(path), projectTree);
+        scanDirectory(new File(path), projectTree);
         logger.info("Finished analyzing project tree");
         return projectTree;
     }
 
-    private void analyzeDirectory(File directory, ProjectTree projectTree) {
+    private void scanDirectory(File directory, ProjectTree projectTree) {
         File[] files = directory.listFiles();
-        List<String> filesOfDirectory = new ArrayList<>();
+        List<File> filesOfDirectory = new ArrayList<>();
         if (files != null) {
             for (File file : files) {
                 if (file.isFile()) {
-                    filesOfDirectory.add(file.getName());
+                    filesOfDirectory.add(file);
                 } else if (file.isDirectory()) {
-                    filesOfDirectory.add(file.getName());
+                    filesOfDirectory.add(file);
                     logger.info("Parsing Directory {}", file.getName());
-                    analyzeDirectory(file, projectTree);
+                    scanDirectory(file, projectTree);
                 }
             }
             projectTree.projectDirectories().put(directory.getName(), filesOfDirectory);

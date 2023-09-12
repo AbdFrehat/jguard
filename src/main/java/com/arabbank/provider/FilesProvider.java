@@ -4,6 +4,7 @@ import com.arabbank.executor.ProjectTreeExecutor;
 import com.arabbank.executor.YamlParseExecutor;
 import com.arabbank.model.ProjectTree;
 
+import java.io.File;
 import java.util.List;
 
 public class FilesProvider {
@@ -18,11 +19,11 @@ public class FilesProvider {
         readProject();
     }
 
-    public List<String> provide(String filename) {
+    public List<File> provide(String filename) {
         return projectTree.projectDirectories().get(filename);
     }
 
     private void readProject() {
-        projectTree = projectTreeExecutor.analyze(configurationProvider.provide("persistPath"));
+        projectTree = projectTreeExecutor.scan(configurationProvider.provide("persistPath"));
     }
 }

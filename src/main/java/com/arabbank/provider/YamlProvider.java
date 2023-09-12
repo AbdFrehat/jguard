@@ -11,7 +11,7 @@ public class YamlProvider {
     public String provide(String[] properties, Map<String, Object> propertiesMap, String propertyName) {
         String propertyValue = "";
         for (String property : properties) {
-            Object value = propertiesMap.get(property);
+            Object value = propertiesMap.getOrDefault(property, "");
             if (value instanceof Map) {
                 propertiesMap = (Map<String, Object>) value;
             } else {

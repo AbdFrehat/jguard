@@ -1,8 +1,8 @@
 package com.arabbank.function;
 
-import java.util.Map;
+import com.arabbank.model.ApplicationYaml;
 
 @FunctionalInterface
 public interface YamlParseFunction {
-    Map<String, Object>  parse(String yamlName);
+    ApplicationYaml parse(String yamlName);
 }
