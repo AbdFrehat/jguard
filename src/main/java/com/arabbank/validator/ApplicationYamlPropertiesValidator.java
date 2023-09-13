@@ -21,7 +21,7 @@ public class ApplicationYamlPropertiesValidator {
     public void validate() {
         List<String> propertiesToValidate = List.of(configurationProvider.provide(ConfigProps.PROPERTIES_TO_VALIDATE).split(","));
         propertiesToValidate.forEach(property -> {
-            String propertyValue = applicationYamlProvider.provide(ConfigProps.valueOf(property.trim()));
+            String propertyValue = applicationYamlProvider.provide(ConfigProps.fromValue(property.trim()));
             if (!propertyValue.isEmpty()) {
                 logger.info("Property {} exists with the value {}", property, propertyValue);
             }

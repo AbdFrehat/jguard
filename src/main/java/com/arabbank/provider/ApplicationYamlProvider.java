@@ -2,8 +2,8 @@ package com.arabbank.provider;
 
 import com.arabbank.executor.YamlParseExecutor;
 import com.arabbank.function.YamlParseFunction;
-import com.arabbank.model.enums.ConfigProps;
 import com.arabbank.model.YamlFile;
+import com.arabbank.model.enums.ConfigProps;
 
 import java.util.Map;
 
@@ -28,7 +28,8 @@ public class ApplicationYamlProvider {
 
     private void parseApplicationYaml() {
         applicationYamlProperties = yamlParseFunction.parse(
-                configurationProvider.provide(ConfigProps.PERSIST_PATH) + "/src/main/resources/config.yml");
+                configurationProvider.provide(ConfigProps.PERSIST_PATH) + "/src/main/resources/config.yml"
+        );
     }
 
 }

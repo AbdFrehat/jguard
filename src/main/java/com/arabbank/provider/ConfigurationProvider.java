@@ -2,8 +2,8 @@ package com.arabbank.provider;
 
 import com.arabbank.executor.YamlParseExecutor;
 import com.arabbank.function.YamlParseFunction;
-import com.arabbank.model.enums.ConfigProps;
 import com.arabbank.model.YamlFile;
+import com.arabbank.model.enums.ConfigProps;
 
 import java.util.Map;
 
@@ -19,12 +19,12 @@ public class ConfigurationProvider {
     }
 
     public String provide(ConfigProps propertyName) {
-        String[] properties = propertyName.name().split("\\.");
+        String[] properties = propertyName.value().split("\\.");
         Map<String, Object> temp = configurations.properties();
         return yamlProvider.provide(properties, temp, propertyName);
     }
 
     private void parseConfigurations() {
-        configurations = yamlParseFunction.parse("/Users/moh/jguard/src/main/resources/config.yml");
+        configurations = yamlParseFunction.parse("/Users/moh/jguard/src/main/resources/config.yml");// TODO: 13/09/2023 Dynamically build the path
     }
 }
