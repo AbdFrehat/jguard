@@ -16,10 +16,11 @@ public class GitCloneExecutor implements GitCloneFunction {
     public void cloneGitRepository(String repositoryUrl, String persistPath) {
         try {
             logger.info("Cloning repository from [{}], persisting to [{}]", repositoryUrl, persistPath);
-            Git.cloneRepository()
+            Git call = Git.cloneRepository()
                     .setURI(repositoryUrl)
                     .setDirectory(new File(persistPath))
                     .call();
+            call.close();
             logger.info("Cloned repository into [{}]", persistPath);
         } catch (GitAPIException e) {
             logger.error("There was an issue while cloning repository, please try again");

@@ -1,13 +1,13 @@
 package com.arabbank.provider;
 
 import com.arabbank.function.YamlParseFunction;
-import com.arabbank.model.ApplicationYaml;
+import com.arabbank.model.YamlFile;
 
 import java.util.Map;
 
 public class ConfigurationProvider {
     private final YamlParseFunction yamlParseFunction;
-    private ApplicationYaml configurations;
+    private YamlFile configurations;
     private final YamlProvider yamlProvider;
 
     public ConfigurationProvider(YamlParseFunction yamlParseFunction) {
