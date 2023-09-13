@@ -2,7 +2,7 @@ package com.arabbank.executor;
 
 import com.arabbank.function.GitCloneFunction;
 import com.arabbank.function.ProjectTreeFunction;
-import com.arabbank.model.ConfigProps;
+import com.arabbank.model.enums.ConfigProps;
 import com.arabbank.provider.ConfigurationProvider;
 
 public class FunctionExecutor {

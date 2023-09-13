@@ -1,4 +1,4 @@
-package com.arabbank.model;
+package com.arabbank.model.enums;
 
 public enum ConfigProps {
     REPOSITORY_URL("repositoryUrl"),

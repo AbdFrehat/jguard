@@ -2,7 +2,7 @@ package com.arabbank.provider;
 
 import com.arabbank.executor.YamlParseExecutor;
 import com.arabbank.function.YamlParseFunction;
-import com.arabbank.model.ConfigProps;
+import com.arabbank.model.enums.ConfigProps;
 import com.arabbank.model.YamlFile;
 
 import java.util.Map;

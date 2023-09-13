@@ -1,6 +1,6 @@
 package com.arabbank.provider;
 
-import com.arabbank.model.ConfigProps;
+import com.arabbank.model.enums.ConfigProps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

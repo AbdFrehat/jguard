@@ -1,7 +1,7 @@
 package com.arabbank.provider;
 
 import com.arabbank.executor.ProjectTreeExecutor;
-import com.arabbank.model.ConfigProps;
+import com.arabbank.model.enums.ConfigProps;
 import com.arabbank.model.ProjectTree;
 
 import java.io.File;

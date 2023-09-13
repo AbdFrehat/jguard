@@ -1,6 +1,6 @@
 package com.arabbank.validator;
 
-import com.arabbank.model.ConfigProps;
+import com.arabbank.model.enums.ConfigProps;
 import com.arabbank.provider.ConfigurationProvider;
 import com.arabbank.provider.FilesProvider;
 import org.slf4j.Logger;
