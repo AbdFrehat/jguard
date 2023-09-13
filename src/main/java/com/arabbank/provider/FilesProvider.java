@@ -14,7 +14,7 @@ public class FilesProvider {
     private ProjectTree projectTree;
 
     public FilesProvider() {
-        this.configurationProvider = new ConfigurationProvider(new YamlParseExecutor());
+        this.configurationProvider = new ConfigurationProvider();
         this.projectTreeExecutor = new ProjectTreeExecutor();
         readProject();
     }

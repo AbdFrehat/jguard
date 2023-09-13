@@ -16,7 +16,7 @@ public class RootFileValidator {
 
     public RootFileValidator() {
         this.filesProvider = new FilesProvider();
-        this.configurationProvider = new ConfigurationProvider(new YamlParseExecutor());
+        this.configurationProvider = new ConfigurationProvider();
     }
 
     public void validate() {

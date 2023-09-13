@@ -1,5 +1,6 @@
 package com.arabbank.provider;
 
+import com.arabbank.executor.YamlParseExecutor;
 import com.arabbank.function.YamlParseFunction;
 import com.arabbank.model.YamlFile;
 
@@ -10,8 +11,8 @@ public class ConfigurationProvider {
     private YamlFile configurations;
     private final YamlProvider yamlProvider;
 
-    public ConfigurationProvider(YamlParseFunction yamlParseFunction) {
-        this.yamlParseFunction = yamlParseFunction;
+    public ConfigurationProvider() {
+        this.yamlParseFunction = new YamlParseExecutor();
         this.yamlProvider = new YamlProvider();
         parseConfigurations();
     }

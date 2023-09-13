@@ -16,7 +16,7 @@ public class ProjectTreeExecutor implements ProjectTreeFunction {
     @Override
     public ProjectTree scan(String path) {
         logger.info("Analyzing repository file tree from [{}]", path);
-        ProjectTree projectTree = new ProjectTree("", new HashMap<>());
+        ProjectTree projectTree = new ProjectTree(new HashMap<>());
         scanDirectory(new File(path), projectTree);
         logger.info("Finished analyzing project tree");
         return projectTree;

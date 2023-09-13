@@ -14,8 +14,8 @@ public class ApplicationYamlPropertiesValidator {
     private static final Logger logger = LoggerFactory.getLogger(ApplicationYamlPropertiesValidator.class);
 
     public ApplicationYamlPropertiesValidator() {
-        this.configurationProvider = new ConfigurationProvider(new YamlParseExecutor());
-        this.applicationYamlProvider = new ApplicationYamlProvider(new YamlParseExecutor());
+        this.configurationProvider = new ConfigurationProvider();
+        this.applicationYamlProvider = new ApplicationYamlProvider();
     }
 
     public void validate() {

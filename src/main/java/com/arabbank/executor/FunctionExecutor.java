@@ -10,7 +10,7 @@ public class FunctionExecutor {
     private final ConfigurationProvider configurationProvider;
 
     public FunctionExecutor() {
-        this.configurationProvider = new ConfigurationProvider(new YamlParseExecutor());
+        this.configurationProvider = new ConfigurationProvider();
         this.gitCloneFunction = new GitCloneExecutor();
         this.projectTreeFunction = new ProjectTreeExecutor();
     }
