@@ -1,7 +1,7 @@
 package com.arabbank.provider;
 
 import com.arabbank.executor.ProjectTreeExecutor;
-import com.arabbank.executor.YamlParseExecutor;
+import com.arabbank.model.ConfigProps;
 import com.arabbank.model.ProjectTree;
 
 import java.io.File;
@@ -24,6 +24,6 @@ public class FilesProvider {
     }
 
     private void readProject() {
-        projectTree = projectTreeExecutor.scan(configurationProvider.provide("persistPath"));
+        projectTree = projectTreeExecutor.scan(configurationProvider.provide(ConfigProps.PERSIST_PATH));
     }
 }

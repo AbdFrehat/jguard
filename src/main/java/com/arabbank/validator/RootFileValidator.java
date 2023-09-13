@@ -1,6 +1,6 @@
 package com.arabbank.validator;
 
-import com.arabbank.executor.YamlParseExecutor;
+import com.arabbank.model.ConfigProps;
 import com.arabbank.provider.ConfigurationProvider;
 import com.arabbank.provider.FilesProvider;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ public class RootFileValidator {
     }
 
     public void validate() {
-        List<String> filesToValidate = List.of(configurationProvider.provide("filesToValidate").split(","));
+        List<String> filesToValidate = List.of(configurationProvider.provide(ConfigProps.FILES_TO_VALIDATE).split(","));
         List<File> root = this.filesProvider.provide("test1");
         List<String> names = root.stream().map(File::getName).toList();
         logger.info("Validating files: {}", filesToValidate);

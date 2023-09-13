@@ -2,6 +2,7 @@ package com.arabbank.executor;
 
 import com.arabbank.function.GitCloneFunction;
 import com.arabbank.function.ProjectTreeFunction;
+import com.arabbank.model.ConfigProps;
 import com.arabbank.provider.ConfigurationProvider;
 
 public class FunctionExecutor {
@@ -17,8 +18,8 @@ public class FunctionExecutor {
 
     public void execute() {
         gitCloneFunction.cloneGitRepository(
-                configurationProvider.provide("repositoryUrl"),
-                configurationProvider.provide("persistPath"));
-        projectTreeFunction.scan(configurationProvider.provide("persistPath"));
+                configurationProvider.provide(ConfigProps.REPOSITORY_URL),
+                configurationProvider.provide(ConfigProps.PERSIST_PATH));
+        projectTreeFunction.scan(configurationProvider.provide(ConfigProps.PERSIST_PATH));
     }
 }

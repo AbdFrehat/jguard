@@ -1,6 +1,6 @@
 package com.arabbank.validator;
 
-import com.arabbank.executor.YamlParseExecutor;
+import com.arabbank.model.ConfigProps;
 import com.arabbank.provider.ApplicationYamlProvider;
 import com.arabbank.provider.ConfigurationProvider;
 import org.slf4j.Logger;
@@ -19,9 +19,9 @@ public class ApplicationYamlPropertiesValidator {
     }
 
     public void validate() {
-        List<String> propertiesToValidate = List.of(configurationProvider.provide("propertiesToValidate").split(","));
+        List<String> propertiesToValidate = List.of(configurationProvider.provide(ConfigProps.PROPERTIES_TO_VALIDATE).split(","));
         propertiesToValidate.forEach(property -> {
-            String propertyValue = applicationYamlProvider.provide(property.trim());
+            String propertyValue = applicationYamlProvider.provide(ConfigProps.valueOf(property.trim()));
             if (!propertyValue.isEmpty()) {
                 logger.info("Property {} exists with the value {}", property, propertyValue);
             }
