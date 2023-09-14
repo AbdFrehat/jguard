@@ -4,7 +4,9 @@ import com.arabbank.executor.YamlParseExecutor;
 import com.arabbank.function.YamlParseFunction;
 import com.arabbank.model.YamlFile;
 import com.arabbank.model.enums.ConfigProps;
+import org.yaml.snakeyaml.error.MissingEnvironmentVariableException;
 
+import static java.io.File.separator;
 import java.util.Map;
 
 public class ConfigurationProvider {
@@ -25,6 +27,10 @@ public class ConfigurationProvider {
     }
 
     private void parseConfigurations() {
-        configurations = yamlParseFunction.parse("/Users/moh/jguard/src/main/resources/config.yml");// TODO: 13/09/2023 Dynamically build the path
+        final String configHomePath = System.getenv().get("CONFIG_HOME");
+        if(configHomePath == null || configHomePath.isEmpty()) {
+            throw new MissingEnvironmentVariableException("Provide CONFIG_HOME in order to locate config.yml file");
+        }
+        configurations = yamlParseFunction.parse(configHomePath + separator + "config.yml");
     }
 }
