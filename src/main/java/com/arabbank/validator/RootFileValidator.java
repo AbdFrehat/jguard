@@ -21,7 +21,7 @@ public class RootFileValidator {
 
     public void validate() {
         List<String> filesToValidate = List.of(configurationProvider.provide(ConfigProps.FILES_TO_VALIDATE).split(","));
-        List<File> root = this.filesProvider.provide("test1");
+        List<File> root = this.filesProvider.provide("jguard.git");
         List<String> names = root.stream().map(File::getName).toList();
         logger.info("Validating files: {}", filesToValidate);
         filesToValidate.forEach(file -> {

@@ -7,6 +7,6 @@ filesToValidate: [
   pom.xml
 ]
 propertiesToValidate: [
-  repositoryUrl,
+  repositoryUrls,
   persistPath
 ]

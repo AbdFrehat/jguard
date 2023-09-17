@@ -4,10 +4,8 @@ import com.arabbank.model.enums.ConfigProps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class YamlProvider {
     private static final Logger logger = LoggerFactory.getLogger(YamlProvider.class);
@@ -19,10 +17,9 @@ public class YamlProvider {
             Object value = propertiesMap.getOrDefault(property, "");
             if (value instanceof Map) {
                 propertiesMap = (Map<String, Object>) value;
-            } else if(value instanceof List) {
+            } else if (value instanceof List) {
                 propertyValue = String.join(",", ((List<String>) value));
-            }
-            else {
+            } else {
                 propertyValue = value.toString();
             }
         }
