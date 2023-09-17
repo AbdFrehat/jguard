@@ -3,7 +3,7 @@ package com.arabbank.model.enums;
 import java.util.Arrays;
 
 public enum ConfigProps {
-    REPOSITORY_URL("repositoryUrl"),
+    REPOSITORY_URL("repositoryUrls"),
     PERSIST_PATH("persistPath"),
     PROPERTIES_TO_VALIDATE("propertiesToValidate"),
     FILES_TO_VALIDATE("filesToValidate");

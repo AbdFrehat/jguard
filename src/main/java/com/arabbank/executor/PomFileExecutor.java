@@ -27,7 +27,7 @@ public class PomFileExecutor implements PomFileFunction {
         Map<String, String> tags = new HashMap<>();
         try {
             MavenXpp3Reader reader = new MavenXpp3Reader();
-            Model model = reader.read(new FileReader(fileProvider.provide("test1").get(1)));
+            Model model = reader.read(new FileReader(fileProvider.provide("pom.xml").get(0)));
             tags.put(model.getGroupId(), model.getGroupId());
             tags.put(model.getArtifactId(), model.getArtifactId());
             tags.put(model.getVersion(), model.getVersion());

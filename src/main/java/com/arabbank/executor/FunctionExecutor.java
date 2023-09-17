@@ -4,6 +4,8 @@ import com.arabbank.function.GitCloneFunction;
 import com.arabbank.function.ProjectTreeFunction;
 import com.arabbank.model.enums.ConfigProps;
 import com.arabbank.provider.ConfigurationProvider;
+import static java.io.File.separator;
+import java.util.Arrays;
 
 public class FunctionExecutor {
     private final GitCloneFunction gitCloneFunction;
@@ -17,9 +19,11 @@ public class FunctionExecutor {
     }
 
     public void execute() {
-        gitCloneFunction.cloneGitRepository(
-                configurationProvider.provide(ConfigProps.REPOSITORY_URL),
-                configurationProvider.provide(ConfigProps.PERSIST_PATH));
-        projectTreeFunction.scan(configurationProvider.provide(ConfigProps.PERSIST_PATH));
+        Arrays.stream(configurationProvider.provide(ConfigProps.REPOSITORY_URL).split(",")).forEach(repositoryURL -> {
+            gitCloneFunction.cloneGitRepository(
+                    repositoryURL,
+                    configurationProvider.provide(ConfigProps.PERSIST_PATH) + separator + repositoryURL.replaceAll("https?:", ""));
+            projectTreeFunction.scan(configurationProvider.provide(ConfigProps.PERSIST_PATH));
+        });
     }
 }

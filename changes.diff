@@ -1,0 +1,185 @@
+diff --git a/src/main/java/com/arabbank/executor/PomFileExecutor.java b/src/main/java/com/arabbank/executor/PomFileExecutor.java
+index f2257bd..8ecd6fb 100644
+--- a/src/main/java/com/arabbank/executor/PomFileExecutor.java
++++ b/src/main/java/com/arabbank/executor/PomFileExecutor.java
+@@ -27,7 +27,7 @@ public class PomFileExecutor implements PomFileFunction {
+         Map<String, String> tags = new HashMap<>();
+         try {
+             MavenXpp3Reader reader = new MavenXpp3Reader();
+-            Model model = reader.read(new FileReader(fileProvider.provide("test1").get(1)));
++            Model model = reader.read(new FileReader(fileProvider.provide("pom.xml").get(0)));
+             tags.put(model.getGroupId(), model.getGroupId());
+             tags.put(model.getArtifactId(), model.getArtifactId());
+             tags.put(model.getVersion(), model.getVersion());
+diff --git a/src/main/java/com/arabbank/executor/ProjectTreeExecutor.java b/src/main/java/com/arabbank/executor/ProjectTreeExecutor.java
+index 4bb969f..1bd1983 100644
+--- a/src/main/java/com/arabbank/executor/ProjectTreeExecutor.java
++++ b/src/main/java/com/arabbank/executor/ProjectTreeExecutor.java
+@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
+ 
+ import java.io.File;
+ import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.HashMap;
+-import java.util.List;
+ 
+ public class ProjectTreeExecutor implements ProjectTreeFunction {
+     private static final Logger logger = LoggerFactory.getLogger(ProjectTreeExecutor.class);
+@@ -16,7 +16,7 @@ public class ProjectTreeExecutor implements ProjectTreeFunction {
+     @Override
+     public ProjectTree scan(String path) {
+         logger.info("Analyzing repository file tree from [{}]", path);
+-        ProjectTree projectTree = new ProjectTree(new HashMap<>());
++        ProjectTree projectTree = new ProjectTree(new ArrayList<>());
+         scanDirectory(new File(path), projectTree);
+         logger.info("Finished analyzing project tree");
+         return projectTree;
+@@ -24,18 +24,9 @@ public class ProjectTreeExecutor implements ProjectTreeFunction {
+ 
+     private void scanDirectory(File directory, ProjectTree projectTree) {
+         File[] files = directory.listFiles();
+-        List<File> filesOfDirectory = new ArrayList<>();
+-        if (files != null) {
+-            for (File file : files) {
+-                if (file.isFile()) {
+-                    filesOfDirectory.add(file);
+-                } else if (file.isDirectory()) {
+-                    filesOfDirectory.add(file);
+-                    logger.info("Parsing Directory {}", file.getName());
+-                    scanDirectory(file, projectTree);
+-                }
+-            }
+-            projectTree.projectDirectories().put(directory.getName(), filesOfDirectory);
++        if(files == null || files.length == 0) {
++            throw new RuntimeException();
+         }
++        projectTree.projectDirectories().addAll(Arrays.asList(files));
+     }
+ }
+diff --git a/src/main/java/com/arabbank/model/ProjectTree.java b/src/main/java/com/arabbank/model/ProjectTree.java
+index eed2f01..81c3b1d 100644
+--- a/src/main/java/com/arabbank/model/ProjectTree.java
++++ b/src/main/java/com/arabbank/model/ProjectTree.java
+@@ -2,7 +2,6 @@ package com.arabbank.model;
+ 
+ import java.io.File;
+ import java.util.List;
+-import java.util.Map;
+ 
+-public record ProjectTree(Map<String, List<File>> projectDirectories) {
++public record ProjectTree(List<File> projectDirectories) {
+ }
+diff --git a/src/main/java/com/arabbank/provider/FilesProvider.java b/src/main/java/com/arabbank/provider/FilesProvider.java
+index 22eca28..53319d3 100644
+--- a/src/main/java/com/arabbank/provider/FilesProvider.java
++++ b/src/main/java/com/arabbank/provider/FilesProvider.java
+@@ -1,30 +1,49 @@
+ package com.arabbank.provider;
+ 
+ import com.arabbank.executor.ProjectTreeExecutor;
++import com.arabbank.function.ProjectTreeFunction;
+ import com.arabbank.model.ProjectTree;
+ import com.arabbank.model.enums.ConfigProps;
+ 
+ import java.io.File;
++import java.nio.file.Files;
++import java.util.ArrayList;
++import java.util.Arrays;
+ import java.util.List;
++import java.util.Objects;
+ 
+ public class FilesProvider {
+ 
+-    private final ProjectTreeExecutor projectTreeExecutor;
++    private final ProjectTreeFunction projectTreeFunction;
+     private final ConfigurationProvider configurationProvider;
+     private ProjectTree projectTree;
+ 
++    private final List<File> foundFilesList = new ArrayList<>();
++
+     public FilesProvider() {
+         this.configurationProvider = new ConfigurationProvider();
+-        this.projectTreeExecutor = new ProjectTreeExecutor();
++        this.projectTreeFunction = new ProjectTreeExecutor();
+         readProject();
+     }
+ 
+-    public List<File> provide(String filename) {
+-        // TODO: 13/09/2023 Edit the implementation to search inside the whole tree
+-        return projectTree.projectDirectories().get(filename);
++    public List<File> provide(String fileName) {
++        return searchInFileSystemTree(fileName, projectTree.projectDirectories());
+     }
+ 
+     private void readProject() {
+-        projectTree = projectTreeExecutor.scan(configurationProvider.provide(ConfigProps.PERSIST_PATH));
++        projectTree = projectTreeFunction.scan(configurationProvider.provide(ConfigProps.PERSIST_PATH));
++    }
++
++    private List<File> searchInFileSystemTree(String fileName, List<File> projectFilesList) {
++        for (File file: projectFilesList) {
++            if (file.isDirectory()) {
++                searchInFileSystemTree(fileName, Arrays.asList(Objects.requireNonNull(file.listFiles())));
++            } else {
++                if(file.getName().equals(fileName)) {
++                    foundFilesList.add(file);
++                }
++            }
++        }
++        return foundFilesList;
+     }
+ }
+diff --git a/src/main/java/com/arabbank/provider/YamlProvider.java b/src/main/java/com/arabbank/provider/YamlProvider.java
+index d8af9cc..7771bf1 100644
+--- a/src/main/java/com/arabbank/provider/YamlProvider.java
++++ b/src/main/java/com/arabbank/provider/YamlProvider.java
+@@ -4,10 +4,8 @@ import com.arabbank.model.enums.ConfigProps;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
+ 
+-import java.util.Arrays;
+ import java.util.List;
+ import java.util.Map;
+-import java.util.stream.Collectors;
+ 
+ public class YamlProvider {
+     private static final Logger logger = LoggerFactory.getLogger(YamlProvider.class);
+@@ -19,10 +17,9 @@ public class YamlProvider {
+             Object value = propertiesMap.getOrDefault(property, "");
+             if (value instanceof Map) {
+                 propertiesMap = (Map<String, Object>) value;
+-            } else if(value instanceof List) {
++            } else if (value instanceof List) {
+                 propertyValue = String.join(",", ((List<String>) value));
+-            }
+-            else {
++            } else {
+                 propertyValue = value.toString();
+             }
+         }
+diff --git a/src/main/java/com/arabbank/validator/RootFileValidator.java b/src/main/java/com/arabbank/validator/RootFileValidator.java
+index a7669df..6f4fb17 100644
+--- a/src/main/java/com/arabbank/validator/RootFileValidator.java
++++ b/src/main/java/com/arabbank/validator/RootFileValidator.java
+@@ -21,7 +21,7 @@ public class RootFileValidator {
+ 
+     public void validate() {
+         List<String> filesToValidate = List.of(configurationProvider.provide(ConfigProps.FILES_TO_VALIDATE).split(","));
+-        List<File> root = this.filesProvider.provide("test1");
++        List<File> root = this.filesProvider.provide("jguard.git");
+         List<String> names = root.stream().map(File::getName).toList();
+         logger.info("Validating files: {}", filesToValidate);
+         filesToValidate.forEach(file -> {
+diff --git a/src/main/resources/config.yml b/src/main/resources/config.yml
+index 8c9f30c..7adccc9 100644
+--- a/src/main/resources/config.yml
++++ b/src/main/resources/config.yml
+@@ -7,6 +7,6 @@ filesToValidate: [
+   pom.xml
+ ]
+ propertiesToValidate: [
+-  repositoryUrl,
++  repositoryUrls,
+   persistPath
+ ]
+\ No newline at end of file
