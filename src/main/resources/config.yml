@@ -1,7 +1,7 @@
 repositoryUrls: [
   https://github.com/mmohiesen96/jguard.git
 ]
-persistPath: /Users/abdfrehat/Frehat/repos
+persistPath: /Users/moh/jguard
 filesToValidate: [
   .gitignore,
   pom.xml
