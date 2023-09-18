@@ -3,7 +3,6 @@ package com.arabbank.starter;
 import static java.io.File.*;
 
 import java.io.File;
-import java.util.List;
 
 import com.arabbank.function.ParseYamlFunction;
 import com.arabbank.model.ApplicationYaml;
@@ -11,6 +10,7 @@ import com.arabbank.model.Project;
 import com.arabbank.process.CloneProjectProcess;
 import com.arabbank.process.ReadTreeProcess;
 import com.arabbank.provider.FilesProvider;
+import com.arabbank.validator.ProjectValidator;
 
 public class ProjectProcessor {
 
@@ -37,20 +37,9 @@ public class ProjectProcessor {
                 .provide("\\w+\\.(yaml|yml)$")
                 .get(0)
                 .getAbsolutePath());
-        executeFileValidation(project.getFilesToValidate());
-        executePropertiesValidation(project.getPropertiesToValidate());
-    }
+        ProjectValidator projectValidator = new ProjectValidator(filesProvider, persistPath, project, applicationYaml);
+        projectValidator.validate();
 
-    private void executePropertiesValidation(List<String> propertiesToValidate) {
-        propertiesToValidate.forEach(properties -> {
-            applicationYaml.properties();
-        });
-    }
-
-    private void executeFileValidation(List<String> filesToValidate) {
-        filesToValidate.forEach(fileToValidate -> {
-            List<File> filesList = filesProvider.provide(fileToValidate);
-        });
     }
 
     private String getProjectPersistPath(Project project, String persistPath) {
