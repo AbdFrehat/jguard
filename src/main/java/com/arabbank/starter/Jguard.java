@@ -1,21 +1,33 @@
 package com.arabbank.starter;
 
-import com.arabbank.executor.ParseYamlExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.arabbank.executor.CloneProjectExecutor;
+import com.arabbank.executor.ParseYamlExecutor;
+import com.arabbank.executor.ReadTreeExecutor;
+import com.arabbank.function.ParseYamlFunction;
+import com.arabbank.model.ConfigYaml;
+import com.arabbank.process.ParseYamlProcess;
+import com.arabbank.provider.FilesProvider;
 
 public class Jguard {
     private static final Logger logger = LoggerFactory.getLogger(Jguard.class);
 
-
     private Jguard() {
     }
 
+    static {
+        ParseYamlProcess parseYamlProcess = new ParseYamlExecutor();
+        parseYamlProcess.process();
+    }
+
     public static void start() {
-        ProjectProcessor projectProcessor = new ProjectProcessor();
+        ConfigYaml configYaml = ParseYamlExecutor.configYaml;
+        ProjectProcessor projectProcessor = new ProjectProcessor(new CloneProjectExecutor(), new ReadTreeExecutor(),
+                new ParseYamlFunction(), new FilesProvider());
         ParseYamlExecutor.configYaml.getProjects().forEach(
-                projectProcessor::run
-        );
+                project -> projectProcessor.run(project, configYaml.getPersistPath()));
     }
 
     static {
