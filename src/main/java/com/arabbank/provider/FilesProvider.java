@@ -1,12 +1,12 @@
 package com.arabbank.provider;
 
-import com.arabbank.executor.ReadTreeExecutor;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+
+import com.arabbank.executor.ReadTreeExecutor;
 
 public class FilesProvider {
     private final List<File> foundFilesList = new ArrayList<>();
@@ -20,7 +20,7 @@ public class FilesProvider {
             if (file.isDirectory()) {
                 searchInFileSystemTree(fileName, Arrays.asList(Objects.requireNonNull(file.listFiles())));
             } else {
-                if (file.getName().equals(fileName)) {
+                if (file.getName().matches(fileName)) {
                     foundFilesList.add(file);
                 }
             }
