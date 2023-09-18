@@ -1,20 +1,19 @@
 package com.arabbank.provider;
 
-import com.arabbank.executor.YamlParseExecutor;
-import com.arabbank.function.YamlParseFunction;
-import com.arabbank.model.YamlFile;
+import com.arabbank.function.ParseYamlFunction;
+import com.arabbank.model.ApplicationYaml;
 import com.arabbank.model.enums.ConfigProps;
 
 import java.util.Map;
 
 public class ApplicationYamlProvider {
-    private final YamlParseFunction yamlParseFunction;
+    private final ParseYamlFunction parseYamlFunction;
     private final ConfigurationProvider configurationProvider;
-    private YamlFile applicationYamlProperties;
+    private ApplicationYaml applicationYamlProperties;
     private final YamlProvider yamlProvider;
 
     public ApplicationYamlProvider() {
-        this.yamlParseFunction = new YamlParseExecutor();
+        this.parseYamlFunction = new ParseYamlFunction();
         this.configurationProvider = new ConfigurationProvider();
         this.yamlProvider = new YamlProvider();
         parseApplicationYaml();
@@ -27,7 +26,7 @@ public class ApplicationYamlProvider {
     }
 
     private void parseApplicationYaml() {
-        applicationYamlProperties = yamlParseFunction.parse(
+        applicationYamlProperties = parseYamlFunction.parse(
                 configurationProvider.provide(ConfigProps.PERSIST_PATH) + "/src/main/resources/config.yml"
         );
     }
