@@ -1,23 +1,21 @@
 package com.arabbank.executor;
 
-import static java.io.File.*;
+import com.arabbank.model.ConfigYaml;
+import com.arabbank.process.ParseConfigYamlProcess;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.error.MissingEnvironmentVariableException;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.error.MissingEnvironmentVariableException;
+import static java.io.File.separator;
 
-import com.arabbank.function.ParseYamlFunction;
-import com.arabbank.model.ConfigYaml;
-import com.arabbank.process.ParseYamlProcess;
-
-public class ParseYamlExecutor implements ParseYamlProcess {
-    private static final Logger logger = LoggerFactory.getLogger(ParseYamlFunction.class);
+public class ParseConfigYamlExecutor implements ParseConfigYamlProcess {
+    private static final Logger logger = LoggerFactory.getLogger(ParseConfigYamlExecutor.class);
     public static ConfigYaml configYaml;
 
     @Override

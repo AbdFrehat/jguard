@@ -1,12 +1,12 @@
 package com.arabbank.provider;
 
+import com.arabbank.executor.ReadTreeExecutor;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import com.arabbank.executor.ReadTreeExecutor;
 
 public class FilesProvider {
     private final List<File> foundFilesList = new ArrayList<>();

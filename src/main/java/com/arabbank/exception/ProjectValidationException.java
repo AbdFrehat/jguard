@@ -1,8 +1,11 @@
 package com.arabbank.exception;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class ProjectValidationException extends RuntimeException {
 
     private final List<Throwable> exceptions = new ArrayList<>();
@@ -15,8 +18,4 @@ public class ProjectValidationException extends RuntimeException {
         exceptions.add(throwable);
     }
 
-    public List<Throwable> getExceptions() {
-        return exceptions;
-    }
-    
 }

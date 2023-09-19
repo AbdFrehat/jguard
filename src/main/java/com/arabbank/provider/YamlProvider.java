@@ -1,6 +1,5 @@
 package com.arabbank.provider;
 
-import com.arabbank.model.enums.ConfigProps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,7 +10,7 @@ public class YamlProvider {
     private static final Logger logger = LoggerFactory.getLogger(YamlProvider.class);
 
     @SuppressWarnings("unchecked")
-    public String provide(String[] properties, Map<String, Object> propertiesMap, ConfigProps propertyName) {
+    public String provide(String[] properties, Map<String, Object> propertiesMap, String propertyName) {
         String propertyValue = "";
         for (String property : properties) {
             Object value = propertiesMap.getOrDefault(property, "");
@@ -22,6 +21,10 @@ public class YamlProvider {
             } else {
                 propertyValue = value.toString();
             }
+        }
+        if (propertyValue.isEmpty()) {
+            logger.warn("property {} not found ", propertyName);
+            return propertyValue;
         }
         logger.info("property {} value is {}", propertyName, propertyValue);
         return propertyValue;

@@ -18,9 +18,13 @@ public class FileExistenceValidator {
     void validate(List<String> filesToValidate) throws FileExistenceValidationException {
         FileExistenceValidationException fileExistenceValidationException = new FileExistenceValidationException("File or more are not found!");
         filesToValidate.stream().filter(fileToValidate -> filesProvider
-                .provide(fileToValidate).isEmpty())
+                        .provide(fileToValidate).isEmpty())
                 .forEach(fileToValidate -> fileExistenceValidationException
-                        .addException(new FileExistenceValidationException(String.format("Unable to find the provided file: %s in %s", filesToValidate, projectPersistPath))));
+                        .addException(
+                                new FileExistenceValidationException(
+                                        String.format("Unable to find the provided file: %s in %s", filesToValidate, projectPersistPath)
+                                )
+                        ));
         if (!fileExistenceValidationException.getExceptions().isEmpty()) {
             throw fileExistenceValidationException;
         }
