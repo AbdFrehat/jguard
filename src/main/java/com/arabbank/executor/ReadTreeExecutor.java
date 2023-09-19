@@ -1,14 +1,13 @@
 package com.arabbank.executor;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import com.arabbank.model.ProjectTree;
+import com.arabbank.process.ReadTreeProcess;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.arabbank.model.ProjectTree;
-import com.arabbank.process.ReadTreeProcess;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ReadTreeExecutor implements ReadTreeProcess {
     private static final Logger logger = LoggerFactory.getLogger(ReadTreeExecutor.class);
