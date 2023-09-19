@@ -27,10 +27,8 @@ public class ProjectValidator {
         } catch (FileExistenceValidationException fileExistenceValidationException) {
             projectValidationException.addException(fileExistenceValidationException);
         }
-
         if(!projectValidationException.getExceptions().isEmpty()) {
             throw projectValidationException;
         }
     }
-    
 }
