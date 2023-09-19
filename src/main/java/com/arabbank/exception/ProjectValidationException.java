@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ProjectValidationException extends RuntimeException {
 
-    private List<Throwable> exceptions = new ArrayList<>();
+    private final List<Throwable> exceptions = new ArrayList<>();
 
     public ProjectValidationException(String message) {
         super(message);
