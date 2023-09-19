@@ -23,7 +23,7 @@ public class ParseApplicationYamlExecutor implements ParseApplicationYamlProcess
     @Override
     public void process() {
         List<File> searchResult = filesProvider
-                .provide("\\application\\.(yaml|yml)$");
+                .provide("application.(yaml|yml)$");
         String yamlFilePath = searchResult.isEmpty() ? "" : searchResult.get(0).getAbsolutePath();
         try (InputStream input = new FileInputStream(yamlFilePath)) {
             Yaml yaml = new Yaml();

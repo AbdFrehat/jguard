@@ -22,11 +22,6 @@ public class YamlProvider {
                 propertyValue = value.toString();
             }
         }
-        if (propertyValue.isEmpty()) {
-            logger.warn("property {} not found ", propertyName);
-            return propertyValue;
-        }
-        logger.info("property {} value is {}", propertyName, propertyValue);
         return propertyValue;
     }
 }

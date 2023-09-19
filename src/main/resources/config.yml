@@ -4,7 +4,7 @@ projects:
       name: jguard1,
       repositoryUrl: https://github.com/mmohiesen96/jguard.git,
       filesToValidate: [ .gitignore, pom.xml ],
-      propertiesToValidate: [ repositoryUrls, com.p.p ]
+      propertiesToValidate: [ logging.info, org.spring.exception.info ]
     }
   ]
 persistPath: /Users/moh/jguard
