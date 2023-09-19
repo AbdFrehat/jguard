@@ -6,7 +6,7 @@ import java.util.Map;
 public class YamlProvider {
 
     @SuppressWarnings("unchecked")
-    public String provide(String[] properties, Map<String, Object> propertiesMap, String propertyName) {
+    public String provide(String[] properties, Map<String, Object> propertiesMap) {
         String propertyValue = "";
         for (String property : properties) {
             Object value = propertiesMap.getOrDefault(property, "");

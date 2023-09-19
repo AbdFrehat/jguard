@@ -16,7 +16,7 @@ public class ApplicationYamlProvider {
     public String provide(String propertyName) {
         String[] properties = propertyName.split("\\.");
         Map<String, Object> temp = applicationYaml.properties();
-        return yamlProvider.provide(properties, temp, propertyName);
+        return yamlProvider.provide(properties, temp);
     }
 
 }
