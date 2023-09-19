@@ -1,13 +1,9 @@
 package com.arabbank.provider;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
 import java.util.Map;
 
 public class YamlProvider {
-    private static final Logger logger = LoggerFactory.getLogger(YamlProvider.class);
 
     @SuppressWarnings("unchecked")
     public String provide(String[] properties, Map<String, Object> propertiesMap, String propertyName) {
