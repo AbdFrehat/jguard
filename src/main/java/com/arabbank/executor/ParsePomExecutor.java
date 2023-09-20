@@ -29,9 +29,9 @@ public class ParsePomExecutor implements ParsePomProcess {
         try {
             MavenXpp3Reader reader = new MavenXpp3Reader();
             Model model = reader.read(new FileReader(fileProvider.provide("pom.xml").get(0)));
-            tags.put(model.getGroupId(), model.getGroupId());
-            tags.put(model.getArtifactId(), model.getArtifactId());
-            tags.put(model.getVersion(), model.getVersion());
+            tags.put("groupId", model.getGroupId());
+            tags.put("artifactId", model.getArtifactId());
+            tags.put("version", model.getVersion());
         } catch (IOException | XmlPullParserException e) {
             logger.error("Error parsing file pom.xml");
         }

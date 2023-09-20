@@ -1,9 +1,6 @@
 package com.arabbank.starter;
 
-import com.arabbank.executor.CloneProjectExecutor;
-import com.arabbank.executor.ParseApplicationYamlExecutor;
-import com.arabbank.executor.ParseConfigYamlExecutor;
-import com.arabbank.executor.ReadTreeExecutor;
+import com.arabbank.executor.*;
 import com.arabbank.model.ConfigYaml;
 import com.arabbank.process.ParseConfigYamlProcess;
 import com.arabbank.provider.FilesProvider;
@@ -27,7 +24,8 @@ public class Jguard {
                 new CloneProjectExecutor(),
                 new ReadTreeExecutor(),
                 new FilesProvider(),
-                new ParseApplicationYamlExecutor(new FilesProvider()));
+                new ParseApplicationYamlExecutor(new FilesProvider()),
+                new ParsePomExecutor());
         ParseConfigYamlExecutor.configYaml.getProjects().forEach(
                 project -> projectProcessor.run(project, configYaml.getPersistPath()));
     }
