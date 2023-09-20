@@ -1,16 +1,10 @@
 projects:
   [
     {
-      name: jguard,
+      name: jguard1,
       repositoryUrl: https://github.com/mmohiesen96/jguard.git,
       filesToValidate: [.gitignore, pom.xml, test.txt],
       propertiesToValidate: [repositoryUrls, persistPath]
     },
-    {
-      name: jguard,
-      repositoryUrl: https://github.com/mmohiesen96/jguard.git,
-      filesToValidate: [.abood, pom.xml ],
-      propertiesToValidate: [repositoryUrls, persistPath]
-    },
   ]
-persistPath: /Users/abdfrehat/
+persistPath: /Users/moh/jguard

@@ -1,9 +1,11 @@
 package com.arabbank.validator;
 
+import com.arabbank.exception.ApplicationYamlValidationException;
 import com.arabbank.exception.FileExistenceValidationException;
 import com.arabbank.exception.ProjectValidationException;
 import com.arabbank.exception.ResourceBundleValidationException;
 import com.arabbank.model.ApplicationYaml;
+import com.arabbank.executor.ParseApplicationYamlExecutor;
 import com.arabbank.model.Project;
 import com.arabbank.provider.FilesProvider;
 
@@ -19,9 +21,19 @@ public class ProjectValidator {
     public ProjectValidator(FilesProvider filesProvider, String projectPersistPath, Project project, ApplicationYaml applicationYaml) {
         this.fileExistenceValidator = new FileExistenceValidator(filesProvider, projectPersistPath);
         this.resourceBundleValidator = new ResourceBundleValidator(filesProvider, projectPersistPath);
+    private final ApplicationYamlPropertiesValidator applicationYamlPropertiesValidator;
+    private final VersionValidator versionValidator;
+    private final String projectPersistPath;
+    private final Project project;
+
+    public ProjectValidator(FilesProvider filesProvider,
+                            String projectPersistPath,
+                            Project project) {
+        this.applicationYamlPropertiesValidator = new ApplicationYamlPropertiesValidator(ParseApplicationYamlExecutor.applicationYaml);
+        this.fileExistenceValidator = new FileExistenceValidator(filesProvider, projectPersistPath);
+        this.versionValidator = new VersionValidator();
         this.projectPersistPath = projectPersistPath;
         this.project = project;
-        this.applicationYaml = applicationYaml;
     }
 
     public void validate() throws ProjectValidationException {
@@ -31,12 +43,17 @@ public class ProjectValidator {
         } catch (FileExistenceValidationException fileExistenceValidationException) {
             projectValidationException.addException(fileExistenceValidationException);
         }
-
         try {
             this.resourceBundleValidator.validate();
         } catch (ResourceBundleValidationException resourceBundleValidationException) {
             projectValidationException.addException(resourceBundleValidationException);
         }
+        try {
+            this.applicationYamlPropertiesValidator.validate(project.getPropertiesToValidate());
+        } catch (ApplicationYamlValidationException applicationYamlValidationException) {
+            projectValidationException.addException(applicationYamlValidationException);
+        }
+        versionValidator.validate();
         if (!projectValidationException.getExceptions().isEmpty()) {
             throw projectValidationException;
         }

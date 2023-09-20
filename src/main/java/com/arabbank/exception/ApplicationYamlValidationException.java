@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ProjectValidationException extends RuntimeException {
+public class ApplicationYamlValidationException extends Exception {
 
     private final List<Throwable> exceptions = new ArrayList<>();
 
-    public ProjectValidationException(String message) {
+
+    public ApplicationYamlValidationException(String message) {
         super(message);
     }
 

@@ -1,6 +1,6 @@
 package com.arabbank.process;
 
 @FunctionalInterface
-public interface ParseYamlProcess {
+public interface ParseConfigYamlProcess {
     void process();
 }

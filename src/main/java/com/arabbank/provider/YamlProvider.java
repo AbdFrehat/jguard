@@ -1,17 +1,12 @@
 package com.arabbank.provider;
 
-import com.arabbank.model.enums.ConfigProps;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.List;
 import java.util.Map;
 
 public class YamlProvider {
-    private static final Logger logger = LoggerFactory.getLogger(YamlProvider.class);
 
     @SuppressWarnings("unchecked")
-    public String provide(String[] properties, Map<String, Object> propertiesMap, ConfigProps propertyName) {
+    public String provide(String[] properties, Map<String, Object> propertiesMap) {
         String propertyValue = "";
         for (String property : properties) {
             Object value = propertiesMap.getOrDefault(property, "");
@@ -23,7 +18,6 @@ public class YamlProvider {
                 propertyValue = value.toString();
             }
         }
-        logger.info("property {} value is {}", propertyName, propertyValue);
         return propertyValue;
     }
 }

@@ -1,0 +1,6 @@
+org:
+  spring:
+    exception:
+      info: true
+logging:
+  info: root
