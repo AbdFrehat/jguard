@@ -6,17 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class FileExistenceValidationException extends Exception {
+public class ResourceBundleValidationException extends Exception {
 
     private final List<Throwable> exceptions = new ArrayList<>();
 
-
-    public FileExistenceValidationException(String message) {
+    public ResourceBundleValidationException(String message) {
         super(message);
     }
 
     public void addException(Throwable throwable) {
         exceptions.add(throwable);
     }
-
 }

@@ -20,7 +20,7 @@ public class FileExistenceValidator {
         filesToValidate.stream().filter(fileToValidate -> filesProvider
                 .provide(fileToValidate).isEmpty())
                 .forEach(fileToValidate -> fileExistenceValidationException
-                        .addException(new FileExistenceValidationException(String.format("Unable to find the provided file: %s in %s", filesToValidate, projectPersistPath))));
+                        .addException(new FileExistenceValidationException(String.format("Unable to find the provided file: %s in %s", fileToValidate, projectPersistPath))));
         if (!fileExistenceValidationException.getExceptions().isEmpty()) {
             throw fileExistenceValidationException;
         }

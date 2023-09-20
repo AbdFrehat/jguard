@@ -2,19 +2,23 @@ package com.arabbank.validator;
 
 import com.arabbank.exception.FileExistenceValidationException;
 import com.arabbank.exception.ProjectValidationException;
+import com.arabbank.exception.ResourceBundleValidationException;
 import com.arabbank.model.ApplicationYaml;
 import com.arabbank.model.Project;
 import com.arabbank.provider.FilesProvider;
 
 public class ProjectValidator {
 
-    private FileExistenceValidator fileExistenceValidator;
-    private String projectPersistPath;
-    private Project project;
+    private final FileExistenceValidator fileExistenceValidator;
+
+    private final ResourceBundleValidator resourceBundleValidator;
+    private final String projectPersistPath;
+    private final Project project;
     private ApplicationYaml applicationYaml;
-    
+
     public ProjectValidator(FilesProvider filesProvider, String projectPersistPath, Project project, ApplicationYaml applicationYaml) {
         this.fileExistenceValidator = new FileExistenceValidator(filesProvider, projectPersistPath);
+        this.resourceBundleValidator = new ResourceBundleValidator(filesProvider, projectPersistPath);
         this.projectPersistPath = projectPersistPath;
         this.project = project;
         this.applicationYaml = applicationYaml;
@@ -27,7 +31,13 @@ public class ProjectValidator {
         } catch (FileExistenceValidationException fileExistenceValidationException) {
             projectValidationException.addException(fileExistenceValidationException);
         }
-        if(!projectValidationException.getExceptions().isEmpty()) {
+
+        try {
+            this.resourceBundleValidator.validate();
+        } catch (ResourceBundleValidationException resourceBundleValidationException) {
+            projectValidationException.addException(resourceBundleValidationException);
+        }
+        if (!projectValidationException.getExceptions().isEmpty()) {
             throw projectValidationException;
         }
     }

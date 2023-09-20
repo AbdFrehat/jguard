@@ -12,6 +12,7 @@ public class FilesProvider {
     private final List<File> foundFilesList = new ArrayList<>();
 
     public List<File> provide(String fileName) {
+        foundFilesList.clear();
         return searchInFileSystemTree(fileName, ReadTreeExecutor.projectTree.projectDirectories());
     }
 
