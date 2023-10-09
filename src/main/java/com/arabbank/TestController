@@ -1,0 +1,22 @@
+
+public class LoanListRestController extends BaseController<LoanListRestController> {
+
+
+    @CommonApiOperation()
+    @CommonArgs
+    public ResponseTemplateDTO<LoanListResponse> getLoanList() {
+        String country = commonContext.getRequestInfo().getCountryCode();
+        return response(loanQueryManager.getCustomerLoans(country, customerId));
+    }
+
+
+    @CommonApiOperation()
+    @CommonArgs
+    public ResponseTemplateDTO<LoanListResponse> getLoanAccountsList() {
+        
+    }
+
+    protected String getDataListName() {
+        return "";
+    }
+}
